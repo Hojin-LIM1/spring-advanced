@@ -38,8 +38,12 @@ public class ManagerService {
                 .orElseThrow(() -> new InvalidRequestException("Todo not found"));
 
 
-        //
-        if (!ObjectUtils.nullSafeEquals(user.getId(), todo.getUser().getId())) {
+        //user가 null인 경우를 작성했으나 하단 메시지와 동일해서 OR문으로 재작성
+//        if(todo.getUser()==null) {
+//            throw new InvalidRequestException("일정을 생성한 유저만 담당자를 지정할 수 있습니다.");
+//        }
+
+        if (todo.getUser()==null||!ObjectUtils.nullSafeEquals(user.getId(), todo.getUser().getId())) {
             throw new InvalidRequestException("일정을 생성한 유저만 담당자를 지정할 수 있습니다.");
         }
 
